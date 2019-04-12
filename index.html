@@ -144,6 +144,9 @@
   </style>
   <script>
     (async () => {
+
+      // supporting functions
+      
       const fetchData = async () => {
         const spreadsheetJSONURL = "https://spreadsheets.google.com/feeds/list/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/od6/public/values?alt=json"
         const spreadsheetDataStream = await fetch(spreadsheetJSONURL)
@@ -184,19 +187,14 @@
         else { return '' }
       }
 
-      const danceData = await fetchData()
-      const dances = mungeDanceData(danceData)
-      const sortedAndFilteredDances = sortAndFilterDanceData(dances)
-
-      const difficultyCSS = {
-        "1 Beginner": 'difficulty-level difficulty-beginner',
-        "2 Intermediate": 'difficulty-level difficulty-intermediate',
-        "3 Advanced": 'difficulty-level difficulty-advanced'
-      };
-
-      sortedAndFilteredDances.forEach((dance) => {
+      const renderDanceCard = (dance) => {
+        const difficultyCSS = {
+          "1 Beginner": 'difficulty-level difficulty-beginner',
+          "2 Intermediate": 'difficulty-level difficulty-intermediate',
+          "3 Advanced": 'difficulty-level difficulty-advanced'
+        };
         const difficultyClass = difficultyCSS[dance.difficulty]
-        document.querySelector('#dance-cards-container').insertAdjacentHTML("beforeend", `
+        return `
           <div class="dance-card">
             <div class="dance-name">${dance.name}</div>
             <div class="subtitle">
@@ -220,7 +218,21 @@
               ${maybeDisplayVideoLink("Instruction Video 2", dance.instruction2)}
             </div>
           </div>
-        `)
+        `
+      }
+
+      const appendDanceCard = (danceCard) => {
+        document.querySelector('#dance-cards-container').insertAdjacentHTML("beforeend", danceCard)
+      }
+
+
+      // Initialization begins here
+
+      const danceData = await fetchData()
+      const dances = mungeDanceData(danceData)
+      const sortedAndFilteredDances = sortAndFilterDanceData(dances)
+      sortedAndFilteredDances.forEach((dance) => {
+        appendDanceCard(renderDanceCard(dance))
       })
     })()
   </script>
