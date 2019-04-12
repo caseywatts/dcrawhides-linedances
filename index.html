@@ -16,12 +16,42 @@
     }
     .dance-card {
       margin: 30px;
-      border: 1px solid black;
+      border: 3px solid #1392f0;
       border-radius: 15px;
       padding: 10px;
+      background-color: ;
     }
     .dance-name {
       text-align: center;
+      color: #bf3a31;
+      font-weight: bold;
+      font-size: large;
+    }
+    .subtitle {
+      color: grey;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: auto;
+      padding-bottom: 10px;
+    }
+    .subtitle-dance-type {
+      text-align: right;
+    }
+    .video-links-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .video-link {
+      border: 1px solid black;
+      border-radius: 20px;
+      background: red;
+      margin: 10px;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .video-link:hover {
+      background: pink;
     }
   </style>
   <script>
@@ -34,7 +64,7 @@
         dance = {
           name: entry['gsx$dancename']['$t'],
           difficulty: entry['gsx$difficulty']['$t'],
-          lineOrPartner: entry['gsx$linedancevs.partnerdance']['$t'],
+          type: entry['gsx$linedancevs.partnerdance']['$t'],
           example1: entry['gsx$examplevideo']['$t'],
           example2: entry['gsx$example2']['$t'],
           instruction1: entry['gsx$instructionvideo']['$t'],
@@ -44,12 +74,16 @@
         document.querySelector('#dance-cards-container').insertAdjacentHTML("beforeend", `
           <div class="dance-card">
             <div class="dance-name">${dance.name}</div>
-            <div class="dance-difficulty">${dance.difficulty}</div>
-            <div class="dance-line-or-partner">${dance.lineOrPartner}</div>
-            <a class="example-link" href="${dance.example1}">Example Video 1</a>
-            <a class="example-link" href="${dance.example2}">Example Video 2</a>
-            <a class="instruction-link" href="${dance.instruction1}">Instruction Video 1</a>
-            <a class="instruction-link" href="${dance.instruction2}">Instruction Video 2</a>
+            <div class="subtitle">
+              <div class="subtitle-dance-difficulty">${dance.difficulty}</div>
+              <div class="subtitle-dance-type">${dance.type}</div>
+            </div>
+            <div class="video-links-container">
+              <a class="video-link" href="${dance.example1}">Example Video 1</a>
+              <a class="video-link" href="${dance.example2}">Example Video 2</a>
+              <a class="video-link" href="${dance.instruction1}">Instruction Video 1</a>
+              <a class="video-link" href="${dance.instruction2}">Instruction Video 2</a>
+            </div>
             <a class="stepsheet" href="${dance.stepsheet}">Stepsheet</a>
           </div>
         `)
