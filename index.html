@@ -3,7 +3,6 @@
 </head>
 <body>
   <h1>DC Rawhides Line Dances</h1>
-  <h4>in order of how often we dance them</h4>
   <div class="contribute-please">
     <div>
       Want to add or correct something? Request access to <a href="https://docs.google.com/spreadsheets/d/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/edit#gid=0">this Google Spreadsheet</a>.
@@ -35,16 +34,19 @@
       text-align: center;
       padding: 0px;
       margin: 0px;
-      color: var(--rawhides-red);
+      color: white;
       background-color: black;
       padding: 20px;
       font-size: 4em;
+      border-bottom: 8px solid var(--rawhides-red);
     }
     h4 {
       text-align: center;
       padding: 0px;
       margin: 0px;
-      margin-top: 10px;
+      padding-bottom: 20px;
+      color: white;
+      background: black;
     }
     .contribute-please {
       text-align: center;
@@ -162,7 +164,7 @@
       .sort((danceEntry) => {
         return danceEntry['gsx$oftimesdancedinpast12months']['$t']
       })
-      console.log(sortedAndFilteredDances);
+
       sortedAndFilteredDances.forEach((danceEntry) => {
         const dance = {
           name: danceEntry['gsx$dancename']['$t'],
