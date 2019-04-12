@@ -152,17 +152,10 @@
       }
 
       const mungeDanceData = (danceData) => {
-        const difficultyCSS = {
-          "1 Beginner": 'difficulty-level difficulty-beginner',
-          "2 Intermediate": 'difficulty-level difficulty-intermediate',
-          "3 Advanced": 'difficulty-level difficulty-advanced'
-        };
-
         return danceData.map((danceEntry) => {
           return {
             name: danceEntry['gsx$dancename']['$t'],
             difficulty: danceEntry['gsx$difficulty']['$t'],
-            difficultyClass: difficultyCSS[danceEntry['gsx$difficulty']['$t']],
             type: danceEntry['gsx$linedancevs.partnerdance']['$t'],
             timesDanced: danceEntry['gsx$oftimesdancedinpast12months']['$t'],
             example1: danceEntry['gsx$examplevideo']['$t'],
@@ -195,14 +188,21 @@
       const dances = mungeDanceData(danceData)
       const sortedAndFilteredDances = sortAndFilterDanceData(dances)
 
+      const difficultyCSS = {
+        "1 Beginner": 'difficulty-level difficulty-beginner',
+        "2 Intermediate": 'difficulty-level difficulty-intermediate',
+        "3 Advanced": 'difficulty-level difficulty-advanced'
+      };
+
       sortedAndFilteredDances.forEach((dance) => {
+        const difficultyClass = difficultyCSS[dance.difficulty]
         document.querySelector('#dance-cards-container').insertAdjacentHTML("beforeend", `
           <div class="dance-card">
             <div class="dance-name">${dance.name}</div>
             <div class="subtitle">
               <div class="subtitle-dance-type">${dance.type}</div>
               <div class="subtitle-dance-difficulty">
-                <div class="${dance.difficultyClass}">${dance.difficulty}</div>
+                <div class="${difficultyClass}">${dance.difficulty}</div>
               </div>
               <div class="subtitle-times-danced">
                 <div>danced about</div>
