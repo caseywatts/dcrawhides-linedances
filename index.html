@@ -7,14 +7,24 @@
   <div class="contribute-please">The data for this page lives in <a href="https://docs.google.com/spreadsheets/d/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/edit#gid=0">this Google Spreadsheet</a>. If you'd like to contribute, request access to the spreadsheet while viewing the spreadsheet.</div>
   <div id="dance-cards-container"></div>
   <style>
+    :root {
+      --rawhides-blue: #1392f0;
+      --rawhides-blue-light: #C6DDEE;
+      --rawhides-red: #bf3a31;
+      --background-blue: #C6DDEE;
+      --other-blue: #6dc8ca;
+    }
+
     body {
       font-family: sans-serif;
-      background: lightblue;
+      background: var(--background-blue);
     }
+
     h1 {
       text-align: center;
       padding: 0px;
       margin: 0px;
+      color: var(--rawhides-red)
     }
     h4 {
       text-align: center;
@@ -31,7 +41,9 @@
       border: 2px solid green;
       border-radius: 15px;
       font-size: small;
+      background: var(--rawhides-blue-light);
     }
+
     #dance-cards-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -40,52 +52,63 @@
     }
     .dance-card {
       margin: 30px;
-      border: 3px solid #1392f0;
+      border: 4px solid var(--rawhides-blue);
       border-radius: 15px;
       padding: 10px;
       background: white;
     }
     .dance-name {
       text-align: center;
-      color: #bf3a31;
+      color: var(--rawhides-red);
       font-weight: bold;
       font-size: x-large;
       padding: 10px;
     }
+
     .subtitle {
       color: grey;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-auto-rows: auto;
+      align-items: center;
       padding: 10px;
       font-size: small;
+      text-align: center;
     }
     .subtitle-times-danced {
-      text-align: right;
+      font-size: x-small;
     }
+    .subtitle-times-danced-number {
+      font-size: large;
+    </div>
+    }
+
     .video-links-container {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
     }
     .video-link {
-      border: 2px solid #1392f0;
+      border: 1px solid var(--rawhides-blue);
       border-radius: 15px;
-      background: #6dc8ca;
+      background: var(--rawhides-blue-light);
       margin: 10px;
       padding: 10px;
       text-align: center;
       text-decoration: none;
     }
     .video-link:hover {
-      filter: brightness(90%);
+      filter: brightness(80%);
     }
+
     .stepsheet-row {
       display: grid;
       grid-template-columns: 1fr;
     }
+
     .difficulty-level {
+      display: inline-block;
       color: white;
-      padding: 3;
+      padding: 5 10;
       border-radius: 15px;
       text-align: center;
     }
@@ -98,6 +121,7 @@
     .difficulty-advanced {
       background: purple;
     }
+
   </style>
   <script>
     (async () => {
@@ -148,8 +172,14 @@
             <div class="dance-name">${dance.name}</div>
             <div class="subtitle">
               <div class="subtitle-dance-type">${dance.type}</div>
-              <div class="subtitle-dance-difficulty ${difficultyClass}">${dance.difficulty}</div>
-              <div class="subtitle-times-danced">danced about ${dance.timesDanced}/24 times at recent dances</div>
+              <div class="subtitle-dance-difficulty">
+                <div class="${difficultyClass}">${dance.difficulty}</div>
+              </div>
+              <div class="subtitle-times-danced">
+                <div>danced about</div>
+                <div class="subtitle-times-danced-number">${dance.timesDanced} / 24</div>
+                <div>times at recent dances</div>
+              </div>
             </div>
             <div class="stepsheet-row">
               ${maybeDisplayStepsheetLink("Stepsheet", dance.stepsheet)}
