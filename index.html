@@ -3,6 +3,8 @@
 </head>
 <body>
   <h1>DC Rawhides Line Dances</h1>
+  <h4>in order of how often we dance them</h4>
+  <div class="contribute-please">The data for this page lives in <a href="https://docs.google.com/spreadsheets/d/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/edit#gid=0">this Google Spreadsheet</a>. If you'd like to contribute, request access to the spreadsheet while viewing the spreadsheet.</div>
   <div id="dance-cards-container"></div>
   <style>
     body {
@@ -11,6 +13,24 @@
     }
     h1 {
       text-align: center;
+      padding: 0px;
+      margin: 0px;
+    }
+    h4 {
+      text-align: center;
+      padding: 0px;
+      margin: 0px;
+    }
+    .contribute-please {
+      text-align: center;
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 10px;
+      max-width: 500px;
+      border: 2px solid green;
+      border-radius: 15px;
+      font-size: small;
     }
     #dance-cards-container {
       display: grid;
@@ -89,10 +109,15 @@
         "2 Intermediate": 'difficulty-level difficulty-intermediate',
         "3 Advanced": 'difficulty-level difficulty-advanced'
       };
-      const sortedAndFilteredDances = danceData.sort((danceEntry) => {
-        return danceEntry['gsx$dancename']['$t']
-      }).filter((danceEntry) => {
+      const sortedAndFilteredDances = danceData
+      .filter((danceEntry) => {
         return (danceEntry['gsx$oftimesdancedinpast12months']['$t'] > 0)
+      })
+      .sort((danceEntry) => {
+        return danceEntry['gsx$dancename']['$t']
+      })
+      .sort((danceEntry) => {
+        return danceEntry['gsx$oftimesdancedinpast12months']['$t']
       })
       console.log(sortedAndFilteredDances);
       sortedAndFilteredDances.forEach((danceEntry) => {
