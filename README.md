@@ -22,4 +22,4 @@ https://spreadsheets.google.com/feeds/list/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6w
 The Google Data API is sorta deprecated - but their newer "Sheets API v4" still doesn't have an unauthenticated way to access this (even for a public spreadsheet). (as of 4/2019)
 
 #### Alternative APIs
-A public spreadsheet *can* be accessed as a CSV, but that's a little harder to parse than getting the JSON directly. If the Google Spreadsheets Data API gets turned off, we should investigate the Sheets API again (hopefully it supports this by then), or we may want to consume it as a "publish to web" CSV instead.
+A public spreadsheet *can* be accessed as a CSV, but that's a little harder to parse than getting the JSON directly. If the Google Spreadsheets Data API gets turned off, we should investigate the Sheets API again (hopefully it supports this by then), or we may want to consume it as a "publish to web" CSV instead
