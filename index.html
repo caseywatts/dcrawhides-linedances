@@ -16,27 +16,32 @@
   <style>
     :root {
       --rawhides-blue: #1392f0;
-      --rawhides-blue-light: #C6DDEE;
       --rawhides-red: #bf3a31;
-      --background-blue: #C6DDEE;
+      --background-blue: #ECF5FC;
       --other-blue: #6dc8ca;
     }
 
     body {
       font-family: sans-serif;
-      background: var(--background-blue);
+      background: white;
+      margin: 0px;
+      padding: 0px;
     }
 
     h1 {
       text-align: center;
       padding: 0px;
       margin: 0px;
-      color: var(--rawhides-red)
+      color: var(--rawhides-red);
+      background-color: black;
+      padding: 20px;
+      font-size: 4em;
     }
     h4 {
       text-align: center;
       padding: 0px;
       margin: 0px;
+      margin-top: 10px;
     }
     .contribute-please {
       text-align: center;
@@ -45,7 +50,7 @@
       margin-bottom: 20px;
       padding: 10px;
       max-width: 500px;
-      border: 2px solid green;
+      border: 1px solid green;
       border-radius: 15px;
       font-size: small;
       background: var(--rawhides-blue-light);
@@ -59,10 +64,11 @@
     }
     .dance-card {
       margin: 30px;
-      border: 4px solid var(--rawhides-blue);
+      border: 3px solid var(--rawhides-blue);
+      box-shadow: 3px 3px 8px grey;
       border-radius: 15px;
       padding: 10px;
-      background: white;
+      background: var(--background-blue);
     }
     .dance-name {
       text-align: center;
@@ -73,7 +79,7 @@
     }
 
     .subtitle {
-      color: grey;
+      /* color: grey; */
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-auto-rows: auto;
@@ -97,14 +103,14 @@
     .video-link {
       border: 1px solid var(--rawhides-blue);
       border-radius: 15px;
-      background: var(--rawhides-blue-light);
+      background: white;
       margin: 10px;
       padding: 10px;
       text-align: center;
       text-decoration: none;
     }
     .video-link:hover {
-      filter: brightness(80%);
+      filter: brightness(95%);
     }
 
     .stepsheet-row {
