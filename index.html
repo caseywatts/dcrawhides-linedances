@@ -1,6 +1,29 @@
+<head>
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.11.1/tachyons.min.css"> -->
+</head>
 <body>
   <h1>DC Rawhides Line Dances</h1>
-  <div id="dances"></div>
+  <div id="dance-cards-container"></div>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    #dance-cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-auto-rows: auto;
+      grid-gap: 1rem;
+    }
+    .dance-card {
+      margin: 30px;
+      border: 1px solid black;
+      border-radius: 15px;
+      padding: 10px;
+    }
+    .dance-name {
+      text-align: center;
+    }
+  </style>
   <script>
     (async () => {
       const spreadsheetJSONURL = "https://spreadsheets.google.com/feeds/list/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/od6/public/values?alt=json"
@@ -18,16 +41,16 @@
           instruction2: entry['gsx$instruction2']['$t'],
           stepsheet: entry['gsx$stepsheet']['$t']
         }
-        document.querySelector('#dances').insertAdjacentHTML("afterend", `
-          <div style="margin: 10px">
-            <div>${dance.name}</div>
-            <div>${dance.difficulty}</div>
-            <div>${dance.lineOrPartner}</div>
-            <div>${dance.example1}</div>
-            <div>${dance.example2}</div>
-            <div>${dance.instruction1}</div>
-            <div>${dance.instruction2}</div>
-            <div>${dance.stepsheet}</div>
+        document.querySelector('#dance-cards-container').insertAdjacentHTML("beforeend", `
+          <div class="dance-card">
+            <div class="dance-name">${dance.name}</div>
+            <div class="dance-difficulty">${dance.difficulty}</div>
+            <div class="dance-line-or-partner">${dance.lineOrPartner}</div>
+            <a class="example-link" href="${dance.example1}">Example Video 1</a>
+            <a class="example-link" href="${dance.example2}">Example Video 2</a>
+            <a class="instruction-link" href="${dance.instruction1}">Instruction Video 1</a>
+            <a class="instruction-link" href="${dance.instruction2}">Instruction Video 2</a>
+            <a class="stepsheet" href="${dance.stepsheet}">Stepsheet</a>
           </div>
         `)
       })
