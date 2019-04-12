@@ -14,7 +14,7 @@
     }
     #dance-cards-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
       grid-auto-rows: auto;
       grid-gap: 1rem;
     }
@@ -35,16 +35,17 @@
     .subtitle {
       color: grey;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       grid-auto-rows: auto;
       padding: 10px;
+      font-size: small;
     }
-    .subtitle-dance-type {
+    .subtitle-times-danced {
       text-align: right;
     }
     .video-links-container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
     }
     .video-link {
       border: 2px solid #1392f0;
@@ -64,7 +65,7 @@
     }
     .difficulty-level {
       color: white;
-      padding: 5;
+      padding: 3;
       border-radius: 15px;
       text-align: center;
     }
@@ -88,19 +89,23 @@
         "2 Intermediate": 'difficulty-level difficulty-intermediate',
         "3 Advanced": 'difficulty-level difficulty-advanced'
       };
-      const sortedDances = danceData.sort((danceEntry) => {
+      const sortedAndFilteredDances = danceData.sort((danceEntry) => {
         return danceEntry['gsx$dancename']['$t']
+      }).filter((danceEntry) => {
+        return (danceEntry['gsx$oftimesdancedinpast12months']['$t'] > 0)
       })
-      sortedDances.forEach((danceEntry) => {
+      console.log(sortedAndFilteredDances);
+      sortedAndFilteredDances.forEach((danceEntry) => {
         const dance = {
           name: danceEntry['gsx$dancename']['$t'],
           difficulty: danceEntry['gsx$difficulty']['$t'],
           type: danceEntry['gsx$linedancevs.partnerdance']['$t'],
+          timesDanced: danceEntry['gsx$oftimesdancedinpast12months']['$t'],
           example1: danceEntry['gsx$examplevideo']['$t'],
           example2: danceEntry['gsx$example2']['$t'],
           instruction1: danceEntry['gsx$instructionvideo']['$t'],
           instruction2: danceEntry['gsx$instruction2']['$t'],
-          stepsheet: danceEntry['gsx$stepsheet']['$t']
+          stepsheet: danceEntry['gsx$stepsheet']['$t'],
         }
 
         const difficultyClass = difficultyCSS[dance.difficulty];
@@ -117,8 +122,9 @@
           <div class="dance-card">
             <div class="dance-name">${dance.name}</div>
             <div class="subtitle">
-              <div class="subtitle-dance-difficulty ${difficultyClass}">${dance.difficulty}</div>
               <div class="subtitle-dance-type">${dance.type}</div>
+              <div class="subtitle-dance-difficulty ${difficultyClass}">${dance.difficulty}</div>
+              <div class="subtitle-times-danced">danced about ${dance.timesDanced}/24 times at recent dances</div>
             </div>
             <div class="stepsheet-row">
               ${maybeDisplayStepsheetLink("Stepsheet", dance.stepsheet)}
