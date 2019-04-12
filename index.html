@@ -19,6 +19,9 @@
       --rawhides-red: #bf3a31;
       --background-blue: #ECF5FC;
       --other-blue: #6dc8ca;
+      --difficulty-beginner: green;
+      --difficulty-intermediate: blue;
+      --difficulty-advanced: purple;
     }
 
     body {
@@ -126,13 +129,16 @@
       text-align: center;
     }
     .difficulty-beginner {
-      background: green;
+      background: var(--difficulty-beginner);
+      filter: brightness(140%);
     }
     .difficulty-intermediate {
-      background: blue;
+      background: var(--difficulty-intermediate);
+      filter: brightness(140%);
     }
     .difficulty-advanced {
-      background: purple;
+      background: var(--difficulty-advanced);
+      filter: brightness(140%);
     }
 
   </style>
