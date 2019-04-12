@@ -7,6 +7,10 @@
   <style>
     body {
       font-family: sans-serif;
+      background: lightblue;
+    }
+    h1 {
+      text-align: center;
     }
     #dance-cards-container {
       display: grid;
@@ -19,20 +23,21 @@
       border: 3px solid #1392f0;
       border-radius: 15px;
       padding: 10px;
-      background-color: ;
+      background: white;
     }
     .dance-name {
       text-align: center;
       color: #bf3a31;
       font-weight: bold;
-      font-size: large;
+      font-size: x-large;
+      padding: 10px;
     }
     .subtitle {
       color: grey;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-auto-rows: auto;
-      padding-bottom: 10px;
+      padding: 10px;
     }
     .subtitle-dance-type {
       text-align: right;
@@ -42,53 +47,91 @@
       grid-template-columns: 1fr 1fr;
     }
     .video-link {
-      border: 1px solid black;
-      border-radius: 20px;
-      background: red;
+      border: 2px solid #1392f0;
+      border-radius: 15px;
+      background: #6dc8ca;
       margin: 10px;
       padding: 10px;
       text-align: center;
       text-decoration: none;
     }
     .video-link:hover {
-      background: pink;
+      filter: brightness(90%);
+    }
+    .stepsheet-row {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .difficulty-level {
+      color: white;
+      padding: 5;
+      border-radius: 15px;
+      text-align: center;
+    }
+    .difficulty-beginner {
+      background: green;
+    }
+    .difficulty-intermediate {
+      background: blue;
+    }
+    .difficulty-advanced {
+      background: purple;
     }
   </style>
   <script>
     (async () => {
       const spreadsheetJSONURL = "https://spreadsheets.google.com/feeds/list/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/od6/public/values?alt=json"
       const spreadsheetDataStream = await fetch(spreadsheetJSONURL)
-      const spreadsheetData = JSON.parse(await spreadsheetDataStream.text()).feed.entry
-      console.log(spreadsheetData)
-      spreadsheetData.forEach((entry) => {
-        dance = {
-          name: entry['gsx$dancename']['$t'],
-          difficulty: entry['gsx$difficulty']['$t'],
-          type: entry['gsx$linedancevs.partnerdance']['$t'],
-          example1: entry['gsx$examplevideo']['$t'],
-          example2: entry['gsx$example2']['$t'],
-          instruction1: entry['gsx$instructionvideo']['$t'],
-          instruction2: entry['gsx$instruction2']['$t'],
-          stepsheet: entry['gsx$stepsheet']['$t']
+      const danceData = JSON.parse(await spreadsheetDataStream.text()).feed.entry
+      const difficultyCSS = {
+        "1 Beginner": 'difficulty-level difficulty-beginner',
+        "2 Intermediate": 'difficulty-level difficulty-intermediate',
+        "3 Advanced": 'difficulty-level difficulty-advanced'
+      };
+      const sortedDances = danceData.sort((danceEntry) => {
+        return danceEntry['gsx$dancename']['$t']
+      })
+      sortedDances.forEach((danceEntry) => {
+        const dance = {
+          name: danceEntry['gsx$dancename']['$t'],
+          difficulty: danceEntry['gsx$difficulty']['$t'],
+          type: danceEntry['gsx$linedancevs.partnerdance']['$t'],
+          example1: danceEntry['gsx$examplevideo']['$t'],
+          example2: danceEntry['gsx$example2']['$t'],
+          instruction1: danceEntry['gsx$instructionvideo']['$t'],
+          instruction2: danceEntry['gsx$instruction2']['$t'],
+          stepsheet: danceEntry['gsx$stepsheet']['$t']
+        }
+
+        const difficultyClass = difficultyCSS[dance.difficulty];
+
+        const maybeDisplayVideoLink = function(title, url) {
+          if (url) { return `<a class="video-link" href="${url}">${title}</a>`}
+          else { return '' }
+        }
+        const maybeDisplayStepsheetLink = function(title, url) {
+          if (url) { return `<a class="stepsheet video-link" href="${url}">${title}</a>`}
+          else { return '' }
         }
         document.querySelector('#dance-cards-container').insertAdjacentHTML("beforeend", `
           <div class="dance-card">
             <div class="dance-name">${dance.name}</div>
             <div class="subtitle">
-              <div class="subtitle-dance-difficulty">${dance.difficulty}</div>
+              <div class="subtitle-dance-difficulty ${difficultyClass}">${dance.difficulty}</div>
               <div class="subtitle-dance-type">${dance.type}</div>
             </div>
+            <div class="stepsheet-row">
+              ${maybeDisplayStepsheetLink("Stepsheet", dance.stepsheet)}
+            <div>
             <div class="video-links-container">
-              <a class="video-link" href="${dance.example1}">Example Video 1</a>
-              <a class="video-link" href="${dance.example2}">Example Video 2</a>
-              <a class="video-link" href="${dance.instruction1}">Instruction Video 1</a>
-              <a class="video-link" href="${dance.instruction2}">Instruction Video 2</a>
+              ${maybeDisplayVideoLink("Example Video", dance.example1)}
+              ${maybeDisplayVideoLink("Example Video 2", dance.example2)}
+              ${maybeDisplayVideoLink("Instruction Video", dance.instruction1)}
+              ${maybeDisplayVideoLink("Instruction Video 2", dance.instruction2)}
             </div>
-            <a class="stepsheet" href="${dance.stepsheet}">Stepsheet</a>
           </div>
         `)
       })
-      // document.querySelector("body").innerHTML = spreadsheetData
     })()
   </script>
 </body>
