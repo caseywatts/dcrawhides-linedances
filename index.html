@@ -146,7 +146,7 @@
     (async () => {
 
       // supporting functions
-      
+
       const fetchData = async () => {
         const spreadsheetJSONURL = "https://spreadsheets.google.com/feeds/list/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/od6/public/values?alt=json"
         const spreadsheetDataStream = await fetch(spreadsheetJSONURL)
@@ -161,6 +161,7 @@
             difficulty: danceEntry['gsx$difficulty']['$t'],
             type: danceEntry['gsx$linedancevs.partnerdance']['$t'],
             timesDanced: danceEntry['gsx$oftimesdancedinpast12months']['$t'],
+            percentDanced: danceEntry['gsx$percentdancedinpast12months']['$t'],
             example1: danceEntry['gsx$examplevideo']['$t'],
             example2: danceEntry['gsx$example2']['$t'],
             instruction1: danceEntry['gsx$instructionvideo']['$t'],
@@ -203,9 +204,9 @@
                 <div class="${difficultyClass}">${dance.difficulty}</div>
               </div>
               <div class="subtitle-times-danced">
-                <div>danced about</div>
-                <div class="subtitle-times-danced-number">${dance.timesDanced} / 24</div>
-                <div>times at recent dances</div>
+                <div>danced at</div>
+                <div class="subtitle-times-danced-number">${dance.percentDanced}</div>
+                <div>of recent events</div>
               </div>
             </div>
             <div class="stepsheet-row">
