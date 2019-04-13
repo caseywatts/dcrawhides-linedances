@@ -3,12 +3,14 @@
 </head>
 <body>
   <h1>DC Rawhides Line Dances</h1>
-  <div class="contribute-please">
-    <div>
-      Want to add or correct something? Request access to <a href="https://docs.google.com/spreadsheets/d/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/edit#gid=0">this Google Spreadsheet</a>.
-    </div>
-    <div style="margin-top: 10px;">
-      Want to improve how the page looks visually? Check out the <a href="https://github.com/caseywatts/dcrawhides-linedances">source code</a>.
+  <div class="contribute-please-container">
+    <div class="contribute-please">
+      <div>
+        Want to add or correct something? Request access to <a href="https://docs.google.com/spreadsheets/d/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/edit#gid=0">this Google Spreadsheet</a>.
+      </div>
+      <div style="margin-top: 10px;">
+        Want to improve how the page looks visually? Check out the <a href="https://github.com/caseywatts/dcrawhides-linedances">source code</a>.
+      </div>
     </div>
   </div>
   <div id="dance-cards-container"></div>
@@ -48,16 +50,19 @@
       color: white;
       background: black;
     }
-    .contribute-please {
-      text-align: center;
+    .contribute-please-container {
       margin: auto;
       margin-top: 20px;
       margin-bottom: 20px;
+      text-align: center;
+    }
+    .contribute-please {
+      display: inline-block;
+      text-align: center;
       padding: 10px;
-      max-width: 500px;
       border: 1px solid green;
       border-radius: 15px;
-      font-size: 0.8em;
+      font-size: 1.2em;
       background: var(--rawhides-blue-light);
     }
 
