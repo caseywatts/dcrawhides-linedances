@@ -166,16 +166,24 @@
 
       const mungeDanceData = (danceData) => {
         return danceData.map((danceEntry) => {
+          const exampleVideos = [
+            danceEntry['gsx$examplevideo']['$t'],
+            danceEntry['gsx$example2']['$t'],
+          ].filter(x => x) // remove any that are empty
+
+          const instructionVideos = [
+            danceEntry['gsx$instructionvideo']['$t'],
+            danceEntry['gsx$instruction2']['$t'],
+          ].filter(x => x) // remove any that are empty
+
           return {
             name: danceEntry['gsx$dancename']['$t'],
             difficulty: danceEntry['gsx$difficulty']['$t'],
             type: danceEntry['gsx$linedancevs.partnerdance']['$t'],
             timesDanced: danceEntry['gsx$oftimesdancedinpast12months']['$t'],
             percentDanced: danceEntry['gsx$percentdancedinpast12months']['$t'],
-            example1: danceEntry['gsx$examplevideo']['$t'],
-            example2: danceEntry['gsx$example2']['$t'],
-            instruction1: danceEntry['gsx$instructionvideo']['$t'],
-            instruction2: danceEntry['gsx$instruction2']['$t'],
+            exampleVideos: exampleVideos,
+            instructionVideos: instructionVideos,
             stepsheet: danceEntry['gsx$stepsheet']['$t'],
           }
         })
@@ -261,8 +269,8 @@
               ${componentStepsheetLink("Stepsheet", dance.stepsheet)}
             </div>
             <div class="video-links-container">
-              ${componentExampleVideos([dance.example1, dance.example2])}
-              ${componentInstructionVideos([dance.instruction1, dance.instruction2])}
+              ${componentExampleVideos(dance.exampleVideos)}
+              ${componentInstructionVideos(dance.instructionVideos)}
             </div>
           </div>
         `
