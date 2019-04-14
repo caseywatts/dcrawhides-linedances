@@ -198,6 +198,44 @@
         else { return '' }
       }
 
+      const componentExampleVideos = function(urls) {
+        if (urls) {
+          return urls.map((url, index) => {
+            const videoNumber = index + 1
+            if (videoNumber === 1) {
+              return `<a class="video-link" href="${url}">Example Video</a>`
+            } else {
+              return `<a class="video-link" href="${url}">Example Video ${videoNumber}</a>`
+            }
+          }).join('') // no commas between elements
+        } else {
+          return 'No Example Videos. Add one?'
+        }
+      }
+
+      const componentInstructionVideos = function(urls) {
+        if (urls) {
+          return urls.map((url, index) => {
+            const videoNumber = index + 1
+            if (videoNumber === 1) {
+              return `<a class="video-link" href="${url}">Instruction Video</a>`
+            } else {
+              return `<a class="video-link" href="${url}">Instruction Video ${videoNumber}</a>`
+            }
+          }).join('') // no commas between elements
+        } else {
+          return 'No Instruction Videos. Add one?'
+        }
+      }
+
+      const componentStepsheetLink = function(title, url) {
+        if (url) {
+          return `<a class="stepsheet video-link" href="${url}">${title}</a>`
+        } else {
+          return `<a class="stepsheet video-link" disabled>No Stepsheet Available. Add one?</a>`
+        }
+      }
+
       const renderDanceCard = (dance) => {
         const difficultyCSS = {
           "1 Beginner": 'difficulty-level difficulty-beginner',
@@ -220,13 +258,11 @@
               </div>
             </div>
             <div class="stepsheet-row">
-              ${maybeDisplayStepsheetLink("Stepsheet", dance.stepsheet)}
+              ${componentStepsheetLink("Stepsheet", dance.stepsheet)}
             </div>
             <div class="video-links-container">
-              ${maybeDisplayVideoLink("Example Video", dance.example1)}
-              ${maybeDisplayVideoLink("Example Video 2", dance.example2)}
-              ${maybeDisplayVideoLink("Instruction Video", dance.instruction1)}
-              ${maybeDisplayVideoLink("Instruction Video 2", dance.instruction2)}
+              ${componentExampleVideos([dance.example1, dance.example2])}
+              ${componentInstructionVideos([dance.instruction1, dance.instruction2])}
             </div>
           </div>
         `
