@@ -210,7 +210,7 @@
       }
 
       const componentExampleVideos = function(urls) {
-        if (urls) {
+        if (urls.length > 0) {
           return urls.map((url, index) => {
             const videoNumber = index + 1
             if (videoNumber === 1) {
@@ -220,12 +220,12 @@
             }
           }).join('') // no commas between elements
         } else {
-          return 'No Example Videos. Add one?'
+          return '<a class="video-link" disabled>No Example Videos. Add one?</a>'
         }
       }
 
       const componentInstructionVideos = function(urls) {
-        if (urls) {
+        if (urls.length > 0) {
           return urls.map((url, index) => {
             const videoNumber = index + 1
             if (videoNumber === 1) {
@@ -235,7 +235,7 @@
             }
           }).join('') // no commas between elements
         } else {
-          return 'No Instruction Videos. Add one?'
+          return '<a class="video-link" disabled>No Instruction Videos. Add one?</a>'
         }
       }
 
