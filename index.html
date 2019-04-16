@@ -94,9 +94,6 @@
     }
 
     .subtitle {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      grid-auto-rows: auto;
       align-items: center;
       padding: 10px;
       font-size: 1em;
@@ -260,8 +257,7 @@
         return `
           <div class="dance-card">
             <div class="dance-name">${dance.name}</div>
-            <div class="subtitle">
-              <div class="subtitle-dance-type">${dance.type}</div>
+            <div class="grid-2 subtitle">
               <div class="subtitle-dance-difficulty">
                 <div class="${difficultyClass}">${dance.difficulty}</div>
               </div>
