@@ -114,6 +114,7 @@
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
     .video-link {
+      display: block;
       border: 1px solid var(--rawhides-blue);
       border-radius: 15px;
       background: white;
@@ -131,11 +132,12 @@
 
     .grid-1 {
       display: grid;
-      grid-
+      grid-template-columns: minmax(100px, 1fr);
     }
+
     .grid-2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
     }
 
     .difficulty-level {
@@ -275,9 +277,13 @@
             <div class="grid-1">
               ${componentStepsheetLink("Stepsheet", dance.stepsheet)}
             </div>
-            <div class="video-links-container">
-              ${componentExampleVideos(dance.exampleVideos)}
-              ${componentInstructionVideos(dance.instructionVideos)}
+            <div class="grid-2">
+              <div>
+                ${componentExampleVideos(dance.exampleVideos)}
+              </div>
+              <div>
+                ${componentInstructionVideos(dance.instructionVideos)}
+              </div>
             </div>
           </div>
         `
