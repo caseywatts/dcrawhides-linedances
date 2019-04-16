@@ -140,6 +140,13 @@
       grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
     }
 
+    .col-header {
+      text-align: center;
+      font-size: 1.2em;
+      color: var(--rawhides-red);
+      margin-top: 20px;
+    }
+
     .difficulty-level {
       display: inline-block;
       color: white;
@@ -267,6 +274,7 @@
             <div class="grid-1">
               ${componentStepsheetLink("Stepsheet", dance.stepsheet)}
             </div>
+            <div class="col-header">Videos</div>
             <div class="grid-2">
               <div>
                 ${componentExampleVideos(dance.exampleVideos)}
