@@ -205,16 +205,6 @@
           .sort(dance => dance.timesDanced)
       }
 
-      const maybeDisplayVideoLink = function(title, url) {
-        if (url) { return `<a class="video-link" href="${url}">${title}</a>`}
-        else { return '' }
-      }
-
-      const maybeDisplayStepsheetLink = function(title, url) {
-        if (url) { return `<a class="stepsheet video-link" href="${url}">${title}</a>`}
-        else { return '' }
-      }
-
       const componentExampleVideos = function(urls) {
         if (urls.length > 0) {
           return urls.map((url, index) => {
