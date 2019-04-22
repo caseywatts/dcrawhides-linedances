@@ -13,6 +13,11 @@
       </div>
     </div>
   </div>
+  <div class="grid-3 sort-section">
+    <a href="?sort=name" class="video-link">Sort By Name</a>
+    <a href="?sort=difficulty" class="video-link">Sort By Difficulty</a>
+    <a href="?sort=timesdanced" class="video-link">Sort By Frequency</a>
+  </div>
   <div id="dance-cards-container">
     <div class="loading-spacer">
       <div class="video-link loading-rainbow"></div>
@@ -95,6 +100,11 @@
       color: white;
       background: black;
     }
+
+    .active-link {
+      filter: brightness(95%);
+    }
+
     .contribute-please-container {
       margin: auto;
       margin-top: 20px;
@@ -109,6 +119,10 @@
       border-radius: 15px;
       font-size: 1.2em;
       background: var(--rawhides-blue-light);
+    }
+
+    .sort-section {
+      max-width: 400px;
     }
 
     .loading-spacer {
@@ -294,6 +308,9 @@
     }
 
     (async () => {
+      (function highlightLinkToCurrentPage() {
+        document.querySelector(`[href='${window.location.search}']`).classList.add('active-link');
+      })()
 
       // supporting functions
 
