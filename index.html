@@ -14,7 +14,9 @@
     </div>
   </div>
   <div id="dance-cards-container">
-    <div class="loading-rainbow"></div>
+    <div class="loading-spacer">
+      <div class="video-link loading-rainbow"></div>
+    </div>
   </div>
   <div id="contribute" class="contribute-section grid-2">
     <div>
@@ -109,8 +111,12 @@
       background: var(--rawhides-blue-light);
     }
 
-    .loading-rainbow {
+    .loading-spacer {
       height: 100vh;
+      padding: 25vw;
+    }
+
+    .loading-rainbow {
       position: relative;
       overflow: hidden;
     }
@@ -122,7 +128,10 @@
       left:0%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(270deg,
+      background: linear-gradient(285deg,
+        transparent,
+        transparent,
+        transparent,
         transparent,
         transparent,
         transparent,
@@ -135,8 +144,12 @@
         rgba(148, 0, 211, .1),
         transparent,
         transparent,
+        transparent,
+        transparent,
+        transparent,
         transparent
       );
+      /* background: linear-gradient(100deg,transparent,transparent,rgba(255,0,0,.1),transparent,transparent); */
 
       transform: translateX(-100%);
       animation: loading .9s infinite;
