@@ -408,6 +408,12 @@
         }
       }
 
+      const componentSongs = function() {
+        return `
+          <a href="https://docs.google.com/spreadsheets/d/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/edit#gid=2072603583" class="video-link">Songs - see spreadsheet</a>
+        `
+      }
+
       const componentDanceCard = (dance) => {
         const difficultyCSS = {
           "1 Beginner": 'difficulty-level difficulty-beginner',
@@ -439,6 +445,9 @@
               <div>
                 ${componentInstructionVideos(dance.instructionVideos)}
               </div>
+            </div>
+            <div class="grid-1">
+              ${componentSongs()}
             </div>
           </div>
         `
