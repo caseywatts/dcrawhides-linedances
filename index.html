@@ -310,7 +310,10 @@
 
     (async () => {
       (function highlightLinkToCurrentPage() {
-        document.querySelector(`[href='${window.location.search}']`).classList.add('active-link');
+        const linkToCurrentPage = document.querySelector(`[href='${window.location.search}']`);
+        if (linkToCurrentPage) {
+          linkToCurrentPage.classList.add('active-link');
+        }
       })()
 
       // supporting functions
