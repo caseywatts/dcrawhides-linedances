@@ -318,11 +318,23 @@
         })
       }
 
-      const sortAndFilterDanceData = (danceData) => {
+      const sortAndFilterDanceData = (danceData, sortBy) => {
         return danceData
           .filter(dance => dance.timesDanced > 0)
           .sort(dance => dance.name)
           .sort(dance => dance.timesDanced)
+          .sort((danceA, danceB) => {
+            if (sortBy === "name") {
+              return danceA.name.localeCompare(danceB.name)
+            } else if (sortBy === "difficulty") {
+              return danceA.difficulty.localeCompare(danceB.difficulty)
+            } else if (sortBy === "timesdanced") {
+              console.log('timesdanced')
+              return parseInt(danceA.timesDanced) > parseInt(danceB.timesDanced)
+            } else {
+              return dance;
+            }
+          })
       }
 
       const componentExampleVideos = function(urls) {
@@ -404,18 +416,23 @@
       }
 
       // Initialization begins here
+      const loadPageContent = (filter) => {
+        const sortedAndFilteredDances = sortAndFilterDanceData(dances, "name")
+        console.log(sortedAndFilteredDances)
+        debugger;
+        const allDanceCards = sortedAndFilteredDances.map((dance) => {
+          return componentDanceCard(dance)
+        }).join('') // no commas between cards
+        if (window.location.href.includes('donotload')) {
+          // noop
+        } else {
+          replaceContentsOfPage(allDanceCards);
+        }
+      }
 
       const danceData = await fetchData()
       const dances = mungeDanceData(danceData)
-      const sortedAndFilteredDances = sortAndFilterDanceData(dances)
-      const allDanceCards = sortedAndFilteredDances.map((dance) => {
-        return componentDanceCard(dance)
-      }).join('') // no commas between cards
-      if (window.location.href.includes('donotload')) {
-        // noop
-      } else {
-        replaceContentsOfPage(allDanceCards);
-      }
+      loadPageContent()
     })()
   </script>
 </body>
