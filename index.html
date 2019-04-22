@@ -329,23 +329,33 @@
         })
       }
 
-      const sortAndFilterDanceData = (danceData, sortBy) => {
-        return danceData
+      const sortAndFilterDanceData = (danceData, sort) => {
+        const sortByName = (danceA, danceB) => {
+          return danceA.name.localeCompare(danceB.name)
+        }
+        const sortByDifficulty = (danceA, danceB) => {
+          return danceA.difficulty.localeCompare(danceB.difficulty)
+        }
+        const sortByTimesDanced = (danceA, danceB) => {
+          debugger;
+          return parseInt(danceA.timesDanced) > parseInt(danceB.timesDanced)
+        }
+
+        const filteredList = danceData
           .filter(dance => dance.timesDanced > 0)
-          .sort(dance => dance.name)
-          .sort(dance => dance.timesDanced)
-          .sort((danceA, danceB) => {
-            if (sortBy === "name") {
-              return danceA.name.localeCompare(danceB.name)
-            } else if (sortBy === "difficulty") {
-              return danceA.difficulty.localeCompare(danceB.difficulty)
-            } else if (sortBy === "timesdanced") {
-              console.log('timesdanced')
-              return parseInt(danceA.timesDanced) > parseInt(danceB.timesDanced)
-            } else {
-              return dance;
-            }
-          })
+
+        if (sort === "name") {
+          console.log('name')
+          return filteredList.sort(sortByName)
+        } else if (sort === "difficulty") {
+          console.log('difficulty')
+          return filteredList.sort(sortByDifficulty)
+        } else if (sort === "timesdanced") {
+          console.log('timesdanced')
+          return filteredList.sort(sortByTimesDanced)
+        } else {
+          return filteredList.sort(sortByName)
+        }
       }
 
       const componentExampleVideos = function(urls) {
@@ -429,8 +439,6 @@
       // Initialization begins here
       const loadPageContent = (filter) => {
         const sortedAndFilteredDances = sortAndFilterDanceData(dances, getQueryVariable('sort'))
-        console.log(sortedAndFilteredDances)
-        debugger;
         const allDanceCards = sortedAndFilteredDances.map((dance) => {
           return componentDanceCard(dance)
         }).join('') // no commas between cards
