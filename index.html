@@ -349,8 +349,7 @@
           return danceA.difficulty.localeCompare(danceB.difficulty)
         }
         const sortByTimesDanced = (danceA, danceB) => {
-          debugger;
-          return parseInt(danceA.timesDanced) > parseInt(danceB.timesDanced)
+          return parseInt(danceB.timesDanced) - parseInt(danceA.timesDanced)
         }
 
         const filteredList = danceData
