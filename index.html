@@ -310,33 +310,47 @@
       // supporting functions
 
       const fetchData = async () => {
-        const spreadsheetJSONURL = "https://spreadsheets.google.com/feeds/list/1-l36tKe7PT3P1iYVJ4H7WpYfG5t0yXXTuH6wlFBbegY/od6/public/values?alt=json"
-        const spreadsheetDataStream = await fetch(spreadsheetJSONURL)
-        const danceData = JSON.parse(await spreadsheetDataStream.text()).feed.entry
-        return danceData
+        const spreadsheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoiGjL6JiGNx4Z2Sn7eqlYX1FfgAFI7A9hBd9yVSGzf7LxpxOvEMmBKDMC1xKev5v6fTOU-hrBofdM/pub?output=csv"
+        const dataStream = await fetch(spreadsheetCsvUrl)
+        const dataStreamText = await dataStream.text()
+
+        var lines = dataStreamText.split(/\r\n|\n/);
+        var headings = lines.shift().split(',');
+        var parsedData = [];
+
+        while (lines.length > 0) {
+            var danceEntry = new Map();
+            var columns = lines.shift().split(',')
+
+            for (var j = 0; j < columns.length; j++) {
+                danceEntry.set(headings[j], columns[j]);
+            }
+            parsedData.push(danceEntry);
+        }
+        return parsedData;
       }
 
       const mungeDanceData = (danceData) => {
         return danceData.map((danceEntry) => {
           const exampleVideos = [
-            danceEntry['gsx$examplevideo']['$t'],
-            danceEntry['gsx$example2']['$t'],
+            danceEntry.get('Example Video'),
+            danceEntry.get('Example 2'),
           ].filter(x => x) // remove any that are empty
 
           const instructionVideos = [
-            danceEntry['gsx$instructionvideo']['$t'],
-            danceEntry['gsx$instruction2']['$t'],
+            danceEntry.get('Instruction Video'),
+            danceEntry.get('Instruction 2'),
           ].filter(x => x) // remove any that are empty
 
           return {
-            name: danceEntry['gsx$dancename']['$t'],
-            difficulty: danceEntry['gsx$difficulty']['$t'],
-            type: danceEntry['gsx$linedancevs.partnerdance']['$t'],
-            timesDanced: danceEntry['gsx$oftimesdancedinpast12months']['$t'],
-            percentDanced: danceEntry['gsx$percentdancedinpast12months']['$t'],
+            name: danceEntry.get('Dance Name'),
+            difficulty: danceEntry.get('Difficulty'),
+            type: danceEntry.get('Line Dance vs. Partner Dance'),
+            timesDanced: danceEntry.get('# of times danced in past 12 months'),
+            percentDanced: danceEntry.get('percent danced in past 12 months'),
             exampleVideos: exampleVideos,
             instructionVideos: instructionVideos,
-            stepsheet: danceEntry['gsx$stepsheet']['$t'],
+            stepsheet: danceEntry.get('Stepsheet'),
           }
         })
       }
